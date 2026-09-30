@@ -1,7 +1,7 @@
-# ![copycat](https://user-images.githubusercontent.com/1731223/167850970-584e6953-6543-4085-af5a-f9d8b7ffe988.png)
+# @levrik/copycat
 
 ```js
-import { copycat } from '@snaplet/copycat'
+import { copycat } from '@levrik/copycat'
 
 copycat.email('foo')
 // => 'Raleigh.McGlynn56687@wholewick.info'
@@ -16,7 +16,7 @@ copycat.email('foo')
 ## Motivation
 
 ### The problem
-Many of the use cases we aim to solve with [snaplet](https://snaplet.dev/) involves anonymizing sensitive information. In practice, this involves replacing each bit of sensitive data with something else that _resembles_ the original value, yet does not allow the original value to be inferred.
+Many of the use cases [snaplet](https://snaplet.dev/) tried to solve involved anonymizing sensitive information. In practice, this involves replacing each bit of sensitive data with something else that _resembles_ the original value, yet does not allow the original value to be inferred.
 
 To do this, we initially turned to [faker](https://fakerjs.dev/) for replacing the sensitive data with fake data. This approach took us quite far. However, we struggled with getting the replacement data to be _deterministic_: we found we did not have enough control over how results are generated to be able to easily ensure that for each value of the original data we wanted to replace, we'd always get the same replacement value out.
 
@@ -28,7 +28,7 @@ What we were really needing was not the same _sequence_ of generated values ever
 This is exactly what we designed `Copycat` to do. For each method provided by Copycat, a given input value will always map to the same output value.
 
 ```js
-import { copycat } from '@snaplet/copycat'
+import { copycat } from '@levrik/copycat'
 
 copycat.email('foo')
 // => 'Raleigh.McGlynn56687@wholewick.info'
@@ -58,7 +58,7 @@ Note though that for either of these approaches, hashing might also still be nee
 <a name="input"></a>All Copycat functions take in an `input` value as their first parameter:
 
 ```js
-import { copycat } from '@snaplet/copycat'
+import { copycat } from '@levrik/copycat'
 
 copycat.email('foo')
 // => 'Raleigh.McGlynn56687@wholewick.info'
