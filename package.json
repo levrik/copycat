@@ -1,5 +1,5 @@
 {
-  "name": "@snaplet/copycat",
+  "name": "@levrik/copycat",
   "version": "6.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -22,21 +22,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/snaplet/copycat.git"
+    "url": "git+https://github.com/levrik/copycat.git"
   },
   "license": "MIT",
   "types": "dist/index.d.ts",
   "dependencies": {
-    "@faker-js/faker": "^8.4.1",
     "fictional": "^3.0.1",
-    "string-argv": "^0.3.2",
-    "uuid": "^9.0.1"
+    "uuid": "^14.0.0"
   },
   "devDependencies": {
     "@expo/spawn-async": "^1.7.2",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.14.1",
-    "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^7.12.0",
     "@typescript-eslint/parser": "^7.12.0",
     "benny": "^3.7.1",
@@ -53,6 +50,7 @@
     "prettier": "^3.3.0",
     "prettier-2": "npm:prettier@^2",
     "semver": "^7.6.2",
+    "string-argv": "^0.3.2",
     "tsup": "^8.1.0",
     "typescript": "^5.4.5",
     "user-agent-is-browser": "^0.1.0",
@@ -63,8 +61,8 @@
     "build": "yarn clean && yarn build:main && yarn build:docs",
     "build:main": "yarn build:js && yarn build:types",
     "build:next": "yarn build:next:js && yarn build:next:types",
-    "build:next:js": "NODE_ENV=production yarn esbuild dist/index.js --bundle --platform=node --external:@faker-js/faker --minify > ./next.js && mkdir -p dist && mv ./next.js ./dist/next.js",
-    "build:next:types": "NODE_ENV=production yarn tsup --entry.next src/index.ts --dts-only --platform=node --format=cjs --external @faker-js/faker --minify",
+    "build:next:js": "NODE_ENV=production yarn esbuild dist/index.js --bundle --platform=node --minify > ./next.js && mkdir -p dist && mv ./next.js ./dist/next.js",
+    "build:next:types": "NODE_ENV=production yarn tsup --entry.next src/index.ts --dts-only --platform=node --format=cjs --minify",
     "clean": "tsc --build --clean && rm -rf dist",
     "build:js": "node ./scripts/buildjs.js",
     "build:types": "tsc --build --verbose",

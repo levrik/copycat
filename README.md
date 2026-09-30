@@ -115,10 +115,6 @@ copycat.fullName('foo')
 The idea is that while Copycat's code is publicly known, the key isn't publically known. This means that even though attackers have access to Copycat's
 code, they are not able to figure out which inputs map to which outputs, since they do not have access to the key.
 
-### `faker`
-
-A re-export of `faker` from [`@faker-js/faker`](https://github.com/faker-js/faker). We do not alter faker in any way, and do not seed it.
-
 ### `fictional`
 
 A re-export of [`fictional`](https://github.com/oftherivier/fictional), a library used under the hood by copycat for mapping inputs to primitive values.

@@ -55,7 +55,7 @@ const publish = async () => {
   await exec(`git commit -m "chore: v${version}"`)
   await exec(`npm pack`)
 
-  packed.push(`snaplet-copycat-${version}.tgz`)
+  packed.push(`levrik-copycat-${version}.tgz`)
 
   await exec(`git tag v${version}`)
   await exec('git push')
@@ -65,33 +65,9 @@ const publish = async () => {
 const ensureCleanGitState = async () => {
   console.log('Ensuring clean git state')
   await exec('git clean -df')
-  await exec('git checkout main')
+  await exec('git checkout fork')
   await exec('git pull --rebase')
   await exec('git push')
-}
-
-const releasePreviewVersion = async () => {
-  const previewVersion = await computeVersion('preview')
-  console.log(`Releasing preview version: ${previewVersion}`)
-
-  console.log('Ensuring dependencies are in sync with lockfile for preview version')
-  await exec(`git checkout v${await readPkgVersion()}`)
-  await exec('yarn install')
-
-  // context(justinvdm, 7 Feb 2024): Ensure `scripts` are up to date in case they have since changed
-  await exec(`git checkout main package.json`)
-
-  await exec(`yarn build`)
-  await exec(`git restore .`)
-
-  await exec('git checkout main')
-
-  console.log('Building `@snaplet/copycat/next`')
-  await exec('yarn install')
-  await exec(`yarn build:next`)
-
-  await bumpVersion(previewVersion)
-  await publish()
 }
 
 const releaseVersion = async (bumpType) => {
@@ -144,8 +120,6 @@ const main = async () => {
     console.log(`
 yarn release: Script for releasing copycat
 
-If a major version is given, will also first release a preview version (where \`@snaplet/copycat/next\` previews the changes)
-
 Usage: yarn release <major|minor|patch>
 
 Example: yarn release major
@@ -154,10 +128,6 @@ Example: yarn release major
   }
 
   await ensureCleanGitState()
-
-  if (bumpType === 'major') {
-    await releasePreviewVersion()
-  }
 
   await releaseVersion(bumpType)
 
